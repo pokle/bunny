@@ -64,3 +64,13 @@ else
 fi
 
 #rabbitmqctl set_policy auto-sync-slaves-man ".*" '{"ha-sync-mode":"automatic"}'
+
+
+if [ "$HOSTNAME" = "bunny2" ]; then
+  echo Creating cluster
+  sudo rabbitmqctl stop_app
+  sudo rabbitmqctl join_cluster rabbit@bunny1
+  sudo rabbitmqctl start_app
+fi
+
+

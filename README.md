@@ -1,14 +1,11 @@
 # bunny
 
-A Clojure library designed to ... well, that part is up to you.
+A minimal Clojure project that connects to a RabbitMQ cluster using the Java RabbitMQ client libraries
 
 ## Usage
 
-FIXME
+First fire up the cluster with:
 
-## License
+  vagrant up
 
-Copyright © 2014 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+And then poke around with the Clojure code!

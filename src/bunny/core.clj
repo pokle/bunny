@@ -17,15 +17,21 @@
 (defn close-connection [chan]
   (.close (.getConnection chan)))
 
-(def ch1 (elmerfudd {:host "bunny1.mq" :user "bunny" :pass "wabbit"}))
-
-(prn (dotimes [i 100]
-          (Thread/sleep 250)
-          (publish ch1 "hole" (str "I'm a happy wabbit" i))))
+(defn blast [times]
+  (let [ch (elmerfudd {:host "bunny1" :user "bunny" :pass "wabbit"})]
+    (dotimes [i times]
+      (Thread/sleep 250)
+      (publish ch "hole" (str "I'm a happy wabbit" i)))))
 
 #_(future
-  (def ch2 (elmerfudd {:host "bunny2.mq" :user "bunny" :pass "wabbit"}))
+  (def ch2 (elmerfudd {:host "bunny" :user "bunny" :pass "wabbit"}))
   (def qc (com.rabbitmq.client.QueueingConsumer. ch2))
   (.basicConsume ch2 "hole" true qc)
   (while true
     (println "Message from the ether: "(-> qc .nextDelivery .getBody String.))))
+
+
+(defn- main [& args]
+  (println "blasting...")
+  (blast 100)
+  (println "Blasted 100"))

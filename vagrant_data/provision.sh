@@ -53,8 +53,9 @@ sudo /sbin/chkconfig  rabbitmq-server on
 if sudo rabbitmqctl list_users | grep bunny; then
 	echo user bunny already created
 else
-	rabbitmqctl add_user bunny wabbit
-	rabbitmqctl set_user_tags bunny administrator
+	sudo rabbitmqctl add_user bunny wabbit
+  sudo rabbitmqctl set_permissions -p / bunny '.*' '.*' '.*'
+	sudo rabbitmqctl set_user_tags bunny administrator
 fi
 
 if sudo rabbitmqctl list_policies | grep mirror-everything-man; then
